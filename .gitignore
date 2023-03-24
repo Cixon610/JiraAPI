@@ -1,0 +1,10 @@
+.vs/
+Console/bin/
+Console/obj/
+GamaJira/bin/
+GamaJira/obj/
+JiraAPI/bin/
+JiraAPI/obj/
+JiraMVC/bin/
+JiraMVC/obj/
+packages/
