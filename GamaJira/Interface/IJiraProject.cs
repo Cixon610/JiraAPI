@@ -1,8 +1,18 @@
-﻿namespace GamaJira.Interface
+﻿using Atlassian.Jira;
+using GamaJira.Models;
+using System.Collections.Generic;
+
+namespace GamaJira.Interface
 {
-    public interface IJiraProject
+    /// <summary>
+    /// Interface of Gama Jira Project
+    /// </summary>
+    public interface IGJProject
     {
-        void GetIssues(string issueId);
-        void CreateIssue(string summary, string description);
+        GamaIssueResponse CreateIssue(GamaIssueRequest issue);
+        GamaIssueResponse GetIssues(string issueId);
+        GamaIssueResponse UpdateIssue(GamaIssueRequest issueConfig);
+        List<JiraUser> SearchUser(string query);
+
     }
 }

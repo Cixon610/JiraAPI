@@ -1,10 +1,11 @@
-﻿using Atlassian.Jira;
-using GamaJira.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GamaJira.Extension;
+using Atlassian.Jira;
+using GamaJira.Models;
 
 namespace GamaJira
 {
@@ -13,41 +14,79 @@ namespace GamaJira
         private Jira Jira { get; set; }
         protected string ProjectName { get; set; }
         protected string ProjectTag { get; set; }
-        public JiraRestClient(string url, JiraProjectConfig config)
+        public JiraRestClient(string url, GJProject config)
         {
-            Jira = Jira.CreateRestClient(url, config.UserName, config.Password);
-            ProjectName = config.Name;
-            ProjectTag = config.Tag;
+            //EnableUserPrivacyMode會禁止查詢User
+            Jira = Jira.CreateRestClient(url, config.Auth.UserName, config.Auth.Password, 
+                new JiraRestClientSettings() { EnableUserPrivacyMode  = true });
+            ProjectName = config.Detail.Name;
+            ProjectTag = config.Detail.Tag;
         }
 
         #region Public Function
-        public Issue CreateIssueFields(Issue issueConfig)
+        /// <summary>
+        /// 專案客製化需屏蔽(new)後再呼叫base.CreateIssue
+        /// </summary>
+        /// <param name="issueConfig"></param>
+        /// <returns></returns>
+        public GamaIssueResponse CreateIssue(GamaIssueRequest issueConfig)
         {
             try
             {
                 var createIssue = Jira.CreateIssue(ProjectTag);
-                MapIssue(createIssue, issueConfig);
+                createIssue = createIssue.AssignFromGamaIssue(issueConfig);
                 createIssue.SaveChanges();
-                return createIssue;
+                return new GamaIssueResponse(createIssue);
             }
             catch (Exception ex)
             {
+                //TODO:Log
                 throw;
             }
         }
-        #endregion
-
-        #region Private Function
-        private void MapIssue(Issue createIssue, Issue issueConfig)
+        public GamaIssueResponse GetIssues(string issueTag)
         {
-            createIssue.Type = issueConfig.Type;
-            createIssue.Summary = issueConfig.Summary;
-            createIssue.Assignee = issueConfig.Assignee;
+            try
+            {
+                var issue = Jira.Issues.GetIssueAsync(issueTag).Result;
+                return new GamaIssueResponse(issue);
+            }
+            catch (Exception ex)
+            {
+                //TODO:Log
+                throw;
+            }
         }
-        //public GetProjectIssues()
-        //{
+        public GamaIssueResponse UpdateIssue(GamaIssueRequest issueConfig)
+        {
+            try
+            {
+                var issue = Jira.Issues.GetIssueAsync(issueConfig.Key.Value).Result;
+                issue = issue.AssignFromGamaIssue(issueConfig);
+                issue.SaveChanges();
+                return new GamaIssueResponse(issue);
+            }
+            catch (Exception ex)
+            {
+                //TODO:Log
+                throw;
+            }
+        }
 
-        //}
+        public List<JiraUser> SearchUser(string query)
+        {
+            try
+            {
+                var users = Jira.Users.SearchAssignableUsersForProjectAsync(query, ProjectTag).Result;
+                var userss = Jira.Users.SearchUsersAsync(query);
+                return users.ToList();
+            }
+            catch (Exception ex)
+            {
+                //TODO:Log
+                throw;
+            }
+        }
         #endregion
     }
 }

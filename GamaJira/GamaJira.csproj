@@ -32,17 +32,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Atlassian.Jira.Signed, Version=10.8.0.0, Culture=neutral, PublicKeyToken=e89455146be57265, processorArchitecture=MSIL">
-      <HintPath>..\packages\Atlassian.SDK.Signed.10.8.0\lib\net452\Atlassian.Jira.Signed.dll</HintPath>
+    <Reference Include="Atlassian.Jira, Version=13.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Atlassian.SDK.13.0.0\lib\net452\Atlassian.Jira.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="RestSharp, Version=100.0.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
-      <HintPath>..\packages\RestSharpSigned.105.2.3\lib\net46\RestSharp.dll</HintPath>
+    <Reference Include="RestSharp, Version=106.12.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.106.12.0\lib\net452\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,14 +53,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\JiraIssuePriority.cs" />
     <Compile Include="Enums\JiraProjectType.cs" />
+    <Compile Include="Extension\IssueExtension.cs" />
     <Compile Include="Interface\IJiraProject.cs" />
     <Compile Include="JiraProjectFactory.cs" />
     <Compile Include="JiraRestClient.cs" />
+    <Compile Include="Models\GamaIssue.cs" />
+    <Compile Include="Models\GamaIssueRequest.cs" />
+    <Compile Include="Models\GamaIssueResponse.cs" />
     <Compile Include="Projects\GamaCert.cs" />
     <Compile Include="Projects\RyanTask.cs" />
     <Compile Include="Projects\WorkFlow.cs" />
-    <Compile Include="Models\JiraProjectConfigModel.cs" />
+    <Compile Include="Models\GamaJiraConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

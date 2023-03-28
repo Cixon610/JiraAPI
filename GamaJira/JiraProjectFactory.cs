@@ -12,15 +12,15 @@ namespace GamaJira
 {
     public class JiraProjectFactory
     {
-        public static IJiraProject CreateJiraProject(JiraProjectType projectType, string jiraUrl, JiraProjectConfig config)
+        public static IGJProject CreateJiraProject(GJProjectType projectType, string jiraUrl, GJProject config)
         {
             switch (projectType)
             {
-                case JiraProjectType.GamaCert:
+                case GJProjectType.GamaCert:
                     return new GamaCert(jiraUrl, config);
-                case JiraProjectType.WorkFlow:
+                case GJProjectType.WorkFlow:
                     return new WorkFlow(jiraUrl, config);
-                case JiraProjectType.RyanTask:
+                case GJProjectType.RyanTask:
                     return new RyanTask(jiraUrl, config);
                 default:
                     return null;

@@ -1,4 +1,9 @@
-﻿using log4net;
+﻿using Atlassian.Jira;
+using GamaJira;
+using GamaJira.Enums;
+using GamaJira.Models;
+using GamaJira.Projects;
+using log4net;
 using log4net.Core;
 using log4net.Repository.Hierarchy;
 using Newtonsoft.Json;
@@ -8,6 +13,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.UI.WebControls;
 
 namespace JiraAPI.Controllers
 {
@@ -15,13 +21,16 @@ namespace JiraAPI.Controllers
     public class JiraController : ApiController
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(JiraController));
-        public string GetIssue()
-        {
-            return "";
-        }
+        [HttpPost]
         public string CreateIssue()
         {
-            return "";
+            var settings = SysConfig.Instance.JiraProject.Projects
+                .FirstOrDefault(x => x.TypeName == GJProjectType.RyanTask.ToString());
+
+            var jira = JiraProjectFactory.CreateJiraProject(GJProjectType.RyanTask, SysConfig.Instance.JiraProject.Url, settings);
+
+            var issue = jira.CreateIssue(new GamaIssueRequest());
+            return JsonConvert.SerializeObject(issue,Formatting.Indented);
         }
         [HttpPost]
         public string WebHookTest(object obj)

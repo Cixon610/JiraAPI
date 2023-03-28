@@ -1,6 +1,9 @@
 ﻿namespace GamaJira.Enums
 {
-    public enum JiraProjectType
+    /// <summary>
+    /// Gama Jira Project Type
+    /// </summary>
+    public enum GJProjectType
     {
         GamaCert,
         WorkFlow,
