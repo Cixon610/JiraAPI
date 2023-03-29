@@ -33,25 +33,17 @@ namespace JiraConsole
             //    //Labels = labels
             //});
             var settings = SysConfig.Instance.JiraProject.Projects
-                .FirstOrDefault(x => x.ClassName == nameof(RyanTask));
+                .FirstOrDefault(x => x.ClassName == nameof(SA35));
 
             var jira = JiraProjectFactory.CreateJiraProject(SysConfig.Instance.JiraProject.Url, settings);
 
             //var user = jira.SearchUser("g-ryanchang@gamania.com");
 
-            var issue = jira.CreateIssue(new GamaIssueRequest
-            {
-                Summary = "Summary",
-                Description = "Description",
-                Assignee = "g-ryanchang@gamania.com",
-                Priority = JiraIssuePriority.High,
-                Type = "Task",
-                //Reporter = "g-ryanchang@gamania.com",
-                //Status = "Status",
-                //AttachmentsPath = new,
-                //CustomFields = CustomFields,
-                //Labels = labels
-            });
+            var issue = jira.CreateUserStory()
+                .SetDescription("Description")
+                .SetPriority(JiraIssuePriority.Highest)
+                .SetSummary("TestSummary")
+                .Build();
             var json = JsonConvert.SerializeObject(issue, Formatting.Indented);
             Console.WriteLine(json);
             Console.ReadLine();

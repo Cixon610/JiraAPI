@@ -1,5 +1,6 @@
 ﻿using Atlassian.Jira;
 using GamaJira.Models;
+using GamaJira.Utilities.Builder;
 using System.Collections.Generic;
 
 namespace GamaJira.Interfaces
@@ -9,7 +10,7 @@ namespace GamaJira.Interfaces
     /// </summary>
     public interface IGJProject
     {
-        GamaIssueResponse CreateUserStory(GamaIssueRequest issueRequest);
+        IssueBuilder CreateUserStory();
         GamaIssueResponse GetIssues(string issueId);
         GamaIssueResponse UpdateIssue(GamaIssueRequest issueConfig, string IssueName);
         List<JiraUser> SearchUser(string query);

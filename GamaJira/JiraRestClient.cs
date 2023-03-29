@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using GamaJira.Extension;
 using Atlassian.Jira;
 using GamaJira.Models;
+using GamaJira.Utilities.Builder;
+using GamaJira.Constant;
 
 namespace GamaJira
 {
@@ -31,15 +33,12 @@ namespace GamaJira
         /// </summary>
         /// <param name="issueConfig"></param>
         /// <returns></returns>
-        public GamaIssueResponse CreateIssue(GamaIssueRequest issueConfig, string issueTypeName)
+        public IssueBuilder CreateIssue(JiraIssueType jIssueType)
         {
             try
             {
-                var issueType = IssueTypes.FirstOrDefault(x => x.Name == issueTypeName);
-                var createIssue = Jira.CreateIssue(ProjectTag);
-                createIssue = createIssue.MapFromGamaIssue(issueConfig, issueType);
-                createIssue.SaveChanges();
-                return new GamaIssueResponse(createIssue);
+                var issueType = IssueTypes.FirstOrDefault(x => x.Name == jIssueType.ToString());
+                return new IssueBuilder(Jira, ProjectTag, issueType).SetType(issueType.ID);
             }
             catch (Exception ex)
             {

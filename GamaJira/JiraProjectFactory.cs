@@ -24,6 +24,8 @@ namespace GamaJira
                     return new Others(jiraUrl, config);
                 case nameof(RyanTask):
                     return new RyanTask(jiraUrl, config);
+                case nameof(SA35):
+                    return new SA35(jiraUrl, config);
             }
 
             return null;

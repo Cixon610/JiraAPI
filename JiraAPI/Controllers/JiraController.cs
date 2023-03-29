@@ -25,12 +25,12 @@ namespace JiraAPI.Controllers
         public string CreateIssue()
         {
             var settings = SysConfig.Instance.JiraProject.Projects
-                .FirstOrDefault(x => x.ClassName == GJProjectType.RyanTask.ToString());
+                .FirstOrDefault(x => x.ClassName == nameof(RyanTask));
 
-            var jira = JiraProjectFactory.CreateJiraProject(GJProjectType.RyanTask, SysConfig.Instance.JiraProject.Url, settings);
-
-            var issue = jira.CreateIssue(new GamaIssueRequest());
-            return JsonConvert.SerializeObject(issue,Formatting.Indented);
+            var jira = JiraProjectFactory.CreateJiraProject(SysConfig.Instance.JiraProject.Url, settings);
+            return "";
+            //var issue = jira.CreateIssue();
+            //return JsonConvert.SerializeObject(issue,Formatting.Indented);
         }
         [HttpPost]
         public string WebHookTest(object obj)

@@ -53,8 +53,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enums\JiraIssuePriority.cs" />
-    <Compile Include="Enums\JiraProjectType.cs" />
+    <Compile Include="Constant\JiraIssuePriority.cs" />
+    <Compile Include="Constant\JiraIssueType.cs" />
+    <Compile Include="Constant\JiraProjectCustomFields.cs" />
     <Compile Include="Extensions\IssueExtension.cs" />
     <Compile Include="Interfaces\IJiraProject.cs" />
     <Compile Include="JiraProjectFactory.cs" />
@@ -62,12 +63,14 @@
     <Compile Include="Models\GamaIssue.cs" />
     <Compile Include="Models\GamaIssueRequest.cs" />
     <Compile Include="Models\GamaIssueResponse.cs" />
-    <Compile Include="Projects\GamaCert.cs" />
+    <Compile Include="Projects\OA.cs" />
+    <Compile Include="Projects\Others.cs" />
+    <Compile Include="Projects\SA35.cs" />
     <Compile Include="Projects\RyanTask.cs" />
-    <Compile Include="Projects\WorkFlow.cs" />
+    <Compile Include="Projects\Hear.cs" />
     <Compile Include="Models\GamaJiraConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utilities\Builder\GamaIssueRequestBuilder.cs" />
+    <Compile Include="Utilities\Builder\IssueBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
