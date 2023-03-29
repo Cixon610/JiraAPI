@@ -40,6 +40,6 @@ namespace GamaJira.Models
     {
         public string ID { get; set; }
         public string Name { get; set; }
-        public Dictionary<string, string> CustomFields { get; set; }
+        public Dictionary<string, string> CustomFieldIDs { get; set; }
     }
 }

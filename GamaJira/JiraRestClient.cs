@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GamaJira.Extension;
 using Atlassian.Jira;
 using GamaJira.Models;
 using GamaJira.Utilities.Builder;
@@ -46,12 +45,12 @@ namespace GamaJira
                 throw;
             }
         }
-        public GamaIssueResponse GetIssues(string issueTag)
+        public GamaIssue GetIssues(string issueTag)
         {
             try
             {
                 var issue = Jira.Issues.GetIssueAsync(issueTag).Result;
-                return new GamaIssueResponse(issue);
+                return new GamaIssue(issue);
             }
             catch (Exception ex)
             {
@@ -59,21 +58,20 @@ namespace GamaJira
                 throw;
             }
         }
-        public GamaIssueResponse UpdateIssue(GamaIssueRequest issueConfig, GJIssueType issueType)
-        {
-            try
-            {
-                var issue = Jira.Issues.GetIssueAsync(issueConfig.Key.Value).Result;
-                issue = issue.MapFromGamaIssue(issueConfig, issueType);
-                issue.SaveChanges();
-                return new GamaIssueResponse(issue);
-            }
-            catch (Exception ex)
-            {
-                //TODO:Log
-                throw;
-            }
-        }
+        //public GamaIssue UpdateIssue(GamaIssueRequest issueConfig, GJIssueType issueType)
+        //{
+        //    try
+        //    {
+        //        var issue = Jira.Issues.GetIssueAsync(issueConfig.Key.Value).Result;
+        //        issue.SaveChanges();
+        //        return new GamaIssue(issue);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TODO:Log
+        //        throw;
+        //    }
+        //}
 
         public List<JiraUser> SearchUser(string query)
         {

@@ -18,10 +18,5 @@ namespace GamaJira.Projects
 
         public IssueBuilder CreateUserStory() => CreateIssue(JiraIssueType.UserStory);
         public IssueBuilder CreateUserTask() => CreateIssue(JiraIssueType.Task);
-
-        public GamaIssueResponse UpdateIssue(GamaIssueRequest issueConfig, string IssueName)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -15,10 +15,5 @@ namespace GamaJira.Projects
     {
         public Others(string jiraUrl, GJProject config) : base(jiraUrl, config) { }
         public IssueBuilder CreateUserStory() => CreateIssue(JiraIssueType.UserStory);
-
-        public GamaIssueResponse UpdateIssue(GamaIssueRequest issueConfig, string IssueName)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

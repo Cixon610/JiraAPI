@@ -75,18 +75,34 @@ namespace GamaJira.Utilities.Builder
             return this;
         }
 
+        /// <summary>
+        /// 截止日
+        /// </summary>
+        /// <param name="datetime"></param>
+        /// <returns></returns>
+        public IssueBuilder SetDueDate(DateTime? datetime)
+        {
+            _issue.DueDate = datetime;
+            return this;
+        }
+
+        /// <summary>
+        /// 客製化欄位
+        /// </summary>
+        /// <param name="customFields"></param>
+        /// <returns></returns>
         public IssueBuilder SetCustomFields(Dictionary<string, string> customFields)
         {
             if (customFields?.Count > 0)
             {
                 //對應customfieldID
-                var fieldIDDic = _issueType.CustomFields;
+                var fieldIDDic = _issueType.CustomFieldIDs;
                 foreach (var field in customFields)
                 {
                     if (fieldIDDic.ContainsKey(field.Key))
                     {
                         var jiraCustomFieldID = fieldIDDic[field.Key];
-                        _issue.CustomFields.Add(jiraCustomFieldID, field.Value);
+                        _issue.CustomFields.AddById(jiraCustomFieldID, field.Value);
                     }
                 }
             }

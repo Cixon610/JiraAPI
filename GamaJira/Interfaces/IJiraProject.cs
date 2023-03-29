@@ -11,8 +11,8 @@ namespace GamaJira.Interfaces
     public interface IGJProject
     {
         IssueBuilder CreateUserStory();
-        GamaIssueResponse GetIssues(string issueId);
-        GamaIssueResponse UpdateIssue(GamaIssueRequest issueConfig, string IssueName);
+        GamaIssue GetIssues(string issueId);
+        //GamaIssue UpdateIssue(GamaIssueRequest issueConfig, string IssueName);
         List<JiraUser> SearchUser(string query);
 
     }

@@ -2,8 +2,10 @@
 using GamaJira.Interfaces;
 using GamaJira.Models;
 using GamaJira.Projects;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,23 +14,35 @@ namespace GamaJira
 {
     public class JiraProjectFactory
     {
-        public static IGJProject CreateJiraProject(string jiraUrl, GJProject config)
+        public GamaJiraConfig JiraProject { get; set; }
+        /// <summary>
+        ///  Path e.g. @".\SystemConfigs\JiraProjectConfig.json"
+        /// </summary>
+        /// <param name="JsonConfigPath"></param>
+        public JiraProjectFactory(string JsonConfigPath) 
         {
-            switch (config.ClassName)
+            JiraProject = JsonConvert.DeserializeObject<GamaJiraConfig>(
+                File.ReadAllText(JsonConfigPath, Encoding.UTF8));
+        }
+        public IGJProject CreateJiraProject(string className)
+        {
+            var projectSettings = JiraProject.Projects.FirstOrDefault(x => x.ClassName == className);
+
+            switch (className)
             {
                 case nameof(OA):
-                    return new OA(jiraUrl, config);
+                    return new OA(JiraProject.Url, projectSettings);
                 case nameof(Hear):
-                    return new Hear(jiraUrl, config);
+                    return new Hear(JiraProject.Url, projectSettings);
                 case nameof(Others):
-                    return new Others(jiraUrl, config);
+                    return new Others(JiraProject.Url, projectSettings);
                 case nameof(RyanTask):
-                    return new RyanTask(jiraUrl, config);
+                    return new RyanTask(JiraProject.Url, projectSettings);
                 case nameof(SA35):
-                    return new SA35(jiraUrl, config);
+                    return new SA35(JiraProject.Url, projectSettings);
+                default:
+                    return null;
             }
-
-            return null;
         }
     }
 }
