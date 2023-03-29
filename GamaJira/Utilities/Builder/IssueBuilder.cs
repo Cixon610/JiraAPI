@@ -14,6 +14,7 @@ namespace GamaJira.Utilities.Builder
     {
         private readonly Issue _issue;
         private readonly GJIssueType _issueType;
+        private IEnumerable<string> attachmentPathList { get; set; }
 
         public IssueBuilder(Jira jira, string projectTag, GJIssueType issueType)
         {
@@ -55,17 +56,18 @@ namespace GamaJira.Utilities.Builder
             return this;
         }
 
-        public IssueBuilder SetAttachmentsPath(string[] attachmentsPath)
+        public IssueBuilder SetAttachmentsPath(IEnumerable<string> attachmentsPath)
         {
-            if (attachmentsPath?.Length > 0)
-                _issue.AddAttachment(attachmentsPath);
+
+            if (attachmentsPath?.Count() > 0)
+                attachmentPathList = attachmentsPath;
             return this;
         }
 
-        public IssueBuilder SetLabels(string[] labels)
+        public IssueBuilder SetLabels(IEnumerable<string> labels)
         {
-            if (labels?.Length > 0)
-                _issue.Labels.Add(labels);
+            if (labels?.Count() > 0)
+                _issue.Labels.Add(labels.ToArray());
             return this;
         }
 
@@ -111,7 +113,14 @@ namespace GamaJira.Utilities.Builder
 
         public Issue Build()
         {
+            //建立Issue，並取得單號
             _issue.SaveChanges();
+
+            //取得單號後才可上傳附件
+            if(attachmentPathList.Count() > 0)
+                _issue.AddAttachment(attachmentPathList.ToArray());
+            _issue.SaveChanges();
+
             return _issue;
         }
     }

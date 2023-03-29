@@ -77,9 +77,7 @@ namespace GamaJira
         {
             try
             {
-                var users = Jira.Users.SearchAssignableUsersForProjectAsync(query, ProjectTag).Result;
-                var userss = Jira.Users.SearchUsersAsync(query);
-                return users.ToList();
+                return Jira.Users.SearchUsersAsync(query).Result.ToList();
             }
             catch (Exception ex)
             {
