@@ -2,16 +2,16 @@
 using GamaJira.Models;
 using System.Collections.Generic;
 
-namespace GamaJira.Interface
+namespace GamaJira.Interfaces
 {
     /// <summary>
     /// Interface of Gama Jira Project
     /// </summary>
     public interface IGJProject
     {
-        GamaIssueResponse CreateIssue(GamaIssueRequest issue);
+        GamaIssueResponse CreateUserStory(GamaIssueRequest issueRequest);
         GamaIssueResponse GetIssues(string issueId);
-        GamaIssueResponse UpdateIssue(GamaIssueRequest issueConfig);
+        GamaIssueResponse UpdateIssue(GamaIssueRequest issueConfig, string IssueName);
         List<JiraUser> SearchUser(string query);
 
     }

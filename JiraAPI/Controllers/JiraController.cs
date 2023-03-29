@@ -1,6 +1,6 @@
 ﻿using Atlassian.Jira;
 using GamaJira;
-using GamaJira.Enums;
+using GamaJira.Constant;
 using GamaJira.Models;
 using GamaJira.Projects;
 using log4net;
@@ -25,7 +25,7 @@ namespace JiraAPI.Controllers
         public string CreateIssue()
         {
             var settings = SysConfig.Instance.JiraProject.Projects
-                .FirstOrDefault(x => x.TypeName == GJProjectType.RyanTask.ToString());
+                .FirstOrDefault(x => x.ClassName == GJProjectType.RyanTask.ToString());
 
             var jira = JiraProjectFactory.CreateJiraProject(GJProjectType.RyanTask, SysConfig.Instance.JiraProject.Url, settings);
 

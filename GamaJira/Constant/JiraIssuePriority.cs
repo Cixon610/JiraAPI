@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GamaJira.Enums
+namespace GamaJira.Constant
 {
     public enum JiraIssuePriority
     {

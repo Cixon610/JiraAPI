@@ -1,4 +1,6 @@
-﻿namespace GamaJira.Models
+﻿using System.Collections.Generic;
+
+namespace GamaJira.Models
 {
     /// <summary>
     /// Gama Jira Config
@@ -8,14 +10,18 @@
         public string Url { get; set; }
         public GJProject[] Projects { get; set; }
     }
+
     /// <summary>
     /// Gama Jira Project
     /// </summary>
     public class GJProject
     {
-        public string TypeName { get; set; }
+        public string ID { get; set; }
+        public string Name { get; set; }
+        public string Tag { get; set; }
+        public string ClassName { get; set; }
         public GJAuth Auth { get; set; }
-        public GJProjectDetail Detail { get; set; }
+        public List<GJIssueType> IssueTypes { get; set; }
     }
 
     /// <summary>
@@ -30,10 +36,10 @@
     /// <summary>
     /// Gama Jira Project Detail
     /// </summary>
-    public class GJProjectDetail
+    public class GJIssueType
     {
         public string ID { get; set; }
         public string Name { get; set; }
-        public string Tag { get; set; }
+        public Dictionary<string, string> CustomFields { get; set; }
     }
 }

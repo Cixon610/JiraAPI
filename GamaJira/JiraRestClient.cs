@@ -14,13 +14,15 @@ namespace GamaJira
         private Jira Jira { get; set; }
         protected string ProjectName { get; set; }
         protected string ProjectTag { get; set; }
+        protected List<GJIssueType> IssueTypes { get; set; }
         public JiraRestClient(string url, GJProject config)
         {
             //EnableUserPrivacyMode會禁止查詢User
             Jira = Jira.CreateRestClient(url, config.Auth.UserName, config.Auth.Password, 
                 new JiraRestClientSettings() { EnableUserPrivacyMode  = true });
-            ProjectName = config.Detail.Name;
-            ProjectTag = config.Detail.Tag;
+            ProjectName = config.Name;
+            ProjectTag = config.Tag;
+            IssueTypes = config.IssueTypes;
         }
 
         #region Public Function
@@ -29,12 +31,13 @@ namespace GamaJira
         /// </summary>
         /// <param name="issueConfig"></param>
         /// <returns></returns>
-        public GamaIssueResponse CreateIssue(GamaIssueRequest issueConfig)
+        public GamaIssueResponse CreateIssue(GamaIssueRequest issueConfig, string issueTypeName)
         {
             try
             {
+                var issueType = IssueTypes.FirstOrDefault(x => x.Name == issueTypeName);
                 var createIssue = Jira.CreateIssue(ProjectTag);
-                createIssue = createIssue.AssignFromGamaIssue(issueConfig);
+                createIssue = createIssue.MapFromGamaIssue(issueConfig, issueType);
                 createIssue.SaveChanges();
                 return new GamaIssueResponse(createIssue);
             }
@@ -57,12 +60,12 @@ namespace GamaJira
                 throw;
             }
         }
-        public GamaIssueResponse UpdateIssue(GamaIssueRequest issueConfig)
+        public GamaIssueResponse UpdateIssue(GamaIssueRequest issueConfig, GJIssueType issueType)
         {
             try
             {
                 var issue = Jira.Issues.GetIssueAsync(issueConfig.Key.Value).Result;
-                issue = issue.AssignFromGamaIssue(issueConfig);
+                issue = issue.MapFromGamaIssue(issueConfig, issueType);
                 issue.SaveChanges();
                 return new GamaIssueResponse(issue);
             }

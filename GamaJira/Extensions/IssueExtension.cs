@@ -13,7 +13,7 @@ namespace GamaJira.Extension
 {
     public static class IssueExtension
     {
-        public static Issue AssignFromGamaIssue(this Issue issue, GamaIssueRequest request)
+        public static Issue MapFromGamaIssue(this Issue issue, GamaIssueRequest request, GJIssueType issueType)
         {
             issue.Assignee = request.Assignee;
             issue.Description = request.Description;
@@ -25,11 +25,17 @@ namespace GamaJira.Extension
             if(request.AttachmentsPath?.Length > 0)
                 issue.AddAttachment(request.AttachmentsPath);
 
-            if(request.CustomFields?.Count > 0)
+            if(request.CustomFieldIDs?.Count > 0)
             {
-                foreach(var field in request.CustomFields)
+                //對應customfieldID
+                var fieldIDDic = issueType.CustomFields;
+                foreach (var field in request.CustomFieldIDs)
                 {
-                    issue.CustomFields.Add(field.Key, field.Value);
+                    if (fieldIDDic.ContainsKey(field.Key))
+                    {
+                        var jiraCustomFieldID = fieldIDDic[field.Key];
+                        issue.CustomFields.Add(jiraCustomFieldID, field.Value);
+                    }
                 }
             }
 

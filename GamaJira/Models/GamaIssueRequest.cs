@@ -1,8 +1,10 @@
 ﻿using Atlassian.Jira;
-using GamaJira.Enums;
+using GamaJira.Constant;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,6 +30,6 @@ namespace GamaJira.Models
         /// <summary> 
         ///自訂欄位值 
         /// </summary> 
-        public Dictionary<string, string> CustomFields { get; set; }
+        public Dictionary<string,string> CustomFieldIDs { get; set; }
     }
 }

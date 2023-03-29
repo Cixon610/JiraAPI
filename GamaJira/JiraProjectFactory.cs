@@ -1,5 +1,5 @@
-﻿using GamaJira.Enums;
-using GamaJira.Interface;
+﻿using GamaJira.Constant;
+using GamaJira.Interfaces;
 using GamaJira.Models;
 using GamaJira.Projects;
 using System;
@@ -12,19 +12,21 @@ namespace GamaJira
 {
     public class JiraProjectFactory
     {
-        public static IGJProject CreateJiraProject(GJProjectType projectType, string jiraUrl, GJProject config)
+        public static IGJProject CreateJiraProject(string jiraUrl, GJProject config)
         {
-            switch (projectType)
+            switch (config.ClassName)
             {
-                case GJProjectType.GamaCert:
-                    return new GamaCert(jiraUrl, config);
-                case GJProjectType.WorkFlow:
-                    return new WorkFlow(jiraUrl, config);
-                case GJProjectType.RyanTask:
+                case nameof(OA):
+                    return new OA(jiraUrl, config);
+                case nameof(Hear):
+                    return new Hear(jiraUrl, config);
+                case nameof(Others):
+                    return new Others(jiraUrl, config);
+                case nameof(RyanTask):
                     return new RyanTask(jiraUrl, config);
-                default:
-                    return null;
             }
+
+            return null;
         }
     }
 }
