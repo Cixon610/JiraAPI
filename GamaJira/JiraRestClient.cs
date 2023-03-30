@@ -7,6 +7,9 @@ using Atlassian.Jira;
 using GamaJira.Models;
 using GamaJira.Utilities.Builder;
 using GamaJira.Constant;
+using Newtonsoft.Json.Linq;
+using RestSharp;
+using System.Resources;
 
 namespace GamaJira
 {
@@ -77,7 +80,10 @@ namespace GamaJira
         {
             try
             {
-                return Jira.Users.SearchUsersAsync(query).Result.ToList();
+                var resourceSb = new StringBuilder($"rest/api/2/user/assignable/search", 200);
+                resourceSb.Append($"?query={Uri.EscapeDataString(query)}&project={Uri.EscapeDataString(ProjectTag)}");
+                resourceSb.Append($"&startAt=0&maxResults=50");
+                return Jira.RestClient.ExecuteRequestAsync<IEnumerable<JiraUser>>(Method.GET, resourceSb.ToString(), null).Result.ToList();
             }
             catch (Exception ex)
             {

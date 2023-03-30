@@ -27,7 +27,7 @@ namespace JiraAPI.Controllers
             var settings = SysConfig.Instance.JiraProject.Projects
                 .FirstOrDefault(x => x.ClassName == nameof(RyanTask));
 
-            var jira = JiraProjectFactory.CreateJiraProject(SysConfig.Instance.JiraProject.Url, settings);
+            //var jira = JiraProjectFactory.CreateJiraProject(SysConfig.Instance.JiraProject.Url, settings);
             return "";
             //var issue = jira.CreateIssue();
             //return JsonConvert.SerializeObject(issue,Formatting.Indented);

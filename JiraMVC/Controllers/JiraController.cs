@@ -1,4 +1,5 @@
 ﻿
+using log4net;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace JiraAPI.Controllers
     [Route("api/jira/{action}")]
     public class JiraController : ApiController
     {
-        //private static readonly ILog logger = LogManager.GetLogger(typeof(JiraController));
+        private static readonly ILog logger = LogManager.GetLogger(typeof(JiraController));
         public string GetIssue()
         {
             return "";
@@ -25,7 +26,7 @@ namespace JiraAPI.Controllers
         public string WebHookTest(object obj)
         {
             var json = JsonConvert.SerializeObject(obj);
-            //logger.Debug(json);
+            logger.Debug(json);
             return json;
         }
     }

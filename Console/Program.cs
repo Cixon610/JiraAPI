@@ -20,9 +20,10 @@ namespace JiraConsole
 
             var jiraFactory = new JiraProjectFactory(@".\SystemConfigs\JiraProjectConfig.json");
             var jiraProject = jiraFactory.CreateJiraProject(nameof(SA35));
-            //var user = jiraProject.SearchUser("g-ryanchang@gamania.com");
-            //var userE = jiraProject.SearchUser("g-ryanchang");
-            //var userC = jiraProject.SearchUser("張景翔");
+            var user = jiraProject.SearchUser("g-ryanchang@gamania.com");
+            var userE = jiraProject.SearchUser("ryanchang");
+            var userC = jiraProject.SearchUser("張景翔");
+            var userL = jiraProject.SearchUser("poan");
 
             var issue = jiraProject.CreateUserStory()
                 .SetAttachmentsPath(new List<string> {

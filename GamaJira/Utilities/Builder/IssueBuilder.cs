@@ -36,13 +36,16 @@ namespace GamaJira.Utilities.Builder
 
         public IssueBuilder SetAssignee(string assignee)
         {
-            _issue.Assignee = assignee;
+            if(!string.IsNullOrEmpty(assignee))
+                _issue.Assignee = assignee;
+
             return this;
         }
 
         public IssueBuilder SetReporter(string reporter)
         {
-            _issue.Reporter = reporter;
+            if (!string.IsNullOrEmpty(reporter))
+                _issue.Reporter = reporter;
             return this;
         }
         /// <summary>
