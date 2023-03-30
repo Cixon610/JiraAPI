@@ -31,6 +31,12 @@ namespace GamaJira
 
         #region Public Function
         /// <summary>
+        /// GetIssueType
+        /// </summary>
+        /// <param name="jIssueType"></param>
+        /// <returns></returns>
+        public GJIssueType GetIssueType(JiraIssueType jIssueType) => IssueTypes.FirstOrDefault(x => x.Name == jIssueType.ToString());
+        /// <summary>
         /// 專案客製化需屏蔽(new)後再呼叫base.CreateIssue
         /// </summary>
         /// <param name="issueConfig"></param>
@@ -61,21 +67,11 @@ namespace GamaJira
                 throw;
             }
         }
-        //public GamaIssue UpdateIssue(GamaIssueRequest issueConfig, GJIssueType issueType)
-        //{
-        //    try
-        //    {
-        //        var issue = Jira.Issues.GetIssueAsync(issueConfig.Key.Value).Result;
-        //        issue.SaveChanges();
-        //        return new GamaIssue(issue);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TODO:Log
-        //        throw;
-        //    }
-        //}
-
+        /// <summary>
+        /// SearchUser
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         public List<JiraUser> SearchUser(string query)
         {
             try

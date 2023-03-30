@@ -59,6 +59,7 @@
     <Compile Include="JiraProjectFactory.cs" />
     <Compile Include="JiraRestClient.cs" />
     <Compile Include="Models\GamaIssue.cs" />
+    <Compile Include="Models\GamaJiraWebHookModel.cs" />
     <Compile Include="Projects\OA.cs" />
     <Compile Include="Projects\Others.cs" />
     <Compile Include="Projects\SA35.cs" />

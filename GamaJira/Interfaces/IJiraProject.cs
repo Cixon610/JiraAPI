@@ -1,4 +1,5 @@
 ﻿using Atlassian.Jira;
+using GamaJira.Constant;
 using GamaJira.Models;
 using GamaJira.Utilities.Builder;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace GamaJira.Interfaces
         GamaIssue GetIssues(string issueId);
         //GamaIssue UpdateIssue(GamaIssueRequest issueConfig, string IssueName);
         List<JiraUser> SearchUser(string query);
+        GJIssueType GetIssueType(JiraIssueType issueType);
 
     }
 }
