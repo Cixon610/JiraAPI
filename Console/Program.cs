@@ -39,7 +39,7 @@ namespace JiraConsole
                                        {"ProjectPriority", "VIP"},
                                        {"ITMemo", "MemoMemoMemoMemoMemoMemoMemoMemoMemoMemoMemoMemoMemoMemoMemoMemoMemoMemoMemoMemo"},
                                    })
-                                   .SetAssignee("634f693bfe5ff3752357f8ab")
+                                   //.SetAssignee("634f693bfe5ff3752357f8ab")
                                    .SetDescription("Description")
                                    .SetPriority(JiraIssuePriority.Highest)
                                    .SetSummary("TestSummary")

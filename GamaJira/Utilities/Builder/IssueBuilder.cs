@@ -120,9 +120,11 @@ namespace GamaJira.Utilities.Builder
             _issue.SaveChanges();
 
             //取得單號後才可上傳附件
-            if(attachmentPathList.Count() > 0)
+            if(attachmentPathList?.Count() > 0)
+            {
                 _issue.AddAttachment(attachmentPathList.ToArray());
-            _issue.SaveChanges();
+                _issue.SaveChanges();
+            }
 
             return _issue;
         }

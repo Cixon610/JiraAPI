@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
 
 namespace GamaJira.Models
 {
@@ -9,6 +12,11 @@ namespace GamaJira.Models
     {
         public string Url { get; set; }
         public GJProject[] Projects { get; set; }
+        public static GamaJiraConfig GetGamaJiraConfig(string JsonConfigPath)
+        {
+            return JsonConvert.DeserializeObject<GamaJiraConfig>(
+                   File.ReadAllText(JsonConfigPath, Encoding.UTF8));
+        }
     }
 
     /// <summary>

@@ -24,24 +24,24 @@ namespace GamaJira
             JiraProject = JsonConvert.DeserializeObject<GamaJiraConfig>(
                 File.ReadAllText(JsonConfigPath, Encoding.UTF8));
         }
+        public JiraProjectFactory(GamaJiraConfig Config)
+        {
+            JiraProject = Config;
+        }
         public IGJProject CreateJiraProject(string className)
         {
             var projectSettings = JiraProject.Projects.FirstOrDefault(x => x.ClassName == className);
-
+            projectSettings = projectSettings ?? JiraProject.Projects.FirstOrDefault(x => x.ClassName == nameof(Other));
             switch (className)
             {
                 case nameof(OA):
                     return new OA(JiraProject.Url, projectSettings);
                 case nameof(Hear):
                     return new Hear(JiraProject.Url, projectSettings);
-                case nameof(Others):
-                    return new Others(JiraProject.Url, projectSettings);
-                case nameof(RyanTask):
-                    return new RyanTask(JiraProject.Url, projectSettings);
                 case nameof(SA35):
                     return new SA35(JiraProject.Url, projectSettings);
                 default:
-                    return null;
+                    return new Other(JiraProject.Url, projectSettings);
             }
         }
     }
